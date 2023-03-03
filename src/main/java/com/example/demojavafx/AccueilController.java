@@ -88,18 +88,21 @@ public class AccueilController implements Initializable {
         String classe = classeTfd.getText();
         String tel = telephoneTfd.getText();
         Etudiants e = new Etudiants(nom, prenom, sexe, classe, tel);
-        if(et.addEtudiant(e) == 1){
-            afficheEtudiants();
-            Notification.NotifSuccess("Succès","Etudiant enregistré avec succès");
-            nomTfd.setText("");
-            prenomTfd.setText("");
-            sexeCbx.getSelectionModel().clearSelection();
-            classeTfd.setText("");
-            telephoneTfd.setText("");
-        }else{
-            Notification.NotifError("Erreur","Impossible d'ajouter' l'étudiant");
+        if(nom.equals("") || prenom.equals("") || sexe.equals("") || classe.equals("") || tel.equals("")){
+            Notification.NotifError("Erreur","Tous les champs sont obligatoires");
+        }else {
+            if (et.addEtudiant(e) == 1) {
+                afficheEtudiants();
+                Notification.NotifSuccess("Succès", "Etudiant enregistré avec succès");
+                nomTfd.setText("");
+                prenomTfd.setText("");
+                sexeCbx.getSelectionModel().clearSelection();
+                classeTfd.setText("");
+                telephoneTfd.setText("");
+            } else {
+                Notification.NotifError("Erreur", "Impossible d'ajouter' l'étudiant");
+            }
         }
-
     }
 
     @FXML
@@ -151,6 +154,7 @@ public class AccueilController implements Initializable {
             sexeCbx.getSelectionModel().clearSelection();
             classeTfd.setText("");
             telephoneTfd.setText("");
+            SaveBtn.setDisable(false);
         }else{
             Notification.NotifError("Erreur","Impossible de modifier l'étudiant");
         }
@@ -167,6 +171,7 @@ public class AccueilController implements Initializable {
            sexeCbx.getSelectionModel().clearSelection();
            classeTfd.setText("");
            telephoneTfd.setText("");
+           SaveBtn.setDisable(false);
        }else{
            Notification.NotifError("Erreur","Suppression échouée!");
        }

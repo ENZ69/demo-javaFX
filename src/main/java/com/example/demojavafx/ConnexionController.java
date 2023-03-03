@@ -41,7 +41,7 @@ public class ConnexionController {
         String email = emailTfd.getText();
         String password = passwordTfd.getText();
         if(email == "" || password == ""){
-            showErrorDialog("Champs obligatoires");
+            Notification.NotifError("Erreur","Champs obligatoires");
         }else{
             User user = userDao.seConnecter(email, password);
             if(user == null){
